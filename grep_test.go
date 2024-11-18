@@ -14,9 +14,10 @@ func TestMatch(t *testing.T) {
 	files := []string{"test.txt"}
 	candidate := "random"
 
-	got := grep.MatchFiles(fileSystem, files, candidate)
-	wanted := []grep.Match{}
-	if !reflect.DeepEqual(got, wanted) {
-		t.Errorf("wanted %v, got %v", wanted, got)
+	got, _ := grep.MatchFiles(fileSystem, files, candidate)
+	wanted := grep.Match{FileName: "test.txt", Lines: []string{"some random text"}}
+
+	if !reflect.DeepEqual(got[0], wanted) {
+		t.Errorf("wanted %v, got %v", wanted, got[0])
 	}
 }
